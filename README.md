@@ -2,65 +2,41 @@
 
 ## users テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------  | ----------- |
-| name               | string  | null: false |
-| email              | string  | null: false |
-| encrypted_password | string  | null: false |
-| tel                | integer | null: false |
+| Column                    | Type      | Options                   |
+| ------------------        | ------    | -----------               |
+| name                      | string    | null: false               |
+| email                     | string    | null: false, unique: true |
+| encrypted_password        | string    | null: false               |
+| first_name                | string    | null: false               |
+| familly_name              | string    | null: false               |
+| birth_date                | datetime  | null: false               |
 
-## Product Information（商品） テーブル
-
-| Column                   | Type     | Options     |
-| ------------------       | ------   | ----------- |
-| Product ID               | integer  | null: false |
-| Product Name             | string   | null: false |
-| Description              | text     | null: false |
-| Price                    | integer  | null: false |
-| Stock Quantity           | integer  | null: false |
-
-## Order Information（注文） テーブル
+## Items（商品） テーブル
 
 | Column                   | Type     | Options     |
 | ------------------       | ------   | ----------- |
-| Order ID                 | integer  | null: false |
-| User ID                  | integer  | null: false |
-| Order Date and Time      | datetime | null: false |
-| Total Amount             | integer  | null: false |
-
-## Order Details（注文詳細） テーブル
-
-| Column                   | Type     | Options     |
-| ------------------       | ------   | ----------- |
-| Order ID                 | integer  | null: false |
-| Product ID               | integer  | null: false |
-| Quantity                 | integer  | null: false |
-
-## Shopping Cart（カート） テーブル
-
-| Column                   | Type     | Options     |
-| ------------------       | ------   | ----------- |
-| Cart ID                  | integer  | null: false |
-| Product ID               | integer  | null: false |
-| User ID                  | integer  | null: false |
-| Quantity                 | integer  | null: false |
+| name                     | string   | null: false |
+| description              | text     | null: false |
+| price                    | integer  | null: false |
+| item_condition           | integer  | null: false |
+| brand                    | integer  |             |
 
 
-## Transaction History（取引履歴） テーブル
+## Orders Information（注文） テーブル
 
-| Column                          | Type      | Options     |
-| ------------------              | ------    | ----------- |
-| Transaction ID                  | integer   | null: false |
-| Order ID                        | integer   | null: false |
-| User ID                         | integer   | null: false |
-| Payment Method                  | string    | null: false |
-| Shipping Method                 | string    | null: false |
-| Shipping Address                | string    | null: false |
-| Transaction Date and Time       | datetime  | null: false |
+| Column                   | Type        | Options     |
+| ------------------       | ------      | ----------- |
+| order_id                 | references  | null: false,foreign_key: true |
+| user_id                  | references  | null: false,foreign_key: true |
+| order_date_and_time      | datetime    | null: false |
+| total_amount             | integer     | null: false |
 
-## Favorite Product（お気に入り） テーブル
+## postages（発送） テーブル
 
 | Column                   | Type     | Options     |
 | ------------------       | ------   | ----------- |
-| Product ID               | integer  | null: false |
-| User ID                  | integer  | null: false |
+| post_code                | string   | null: false |
+| city                     | string   | null: false |
+| house_number             | string   | null: false |
+| building_name            | string   | null: false |
+| phone_number             | string   | null: false, unique: true |
