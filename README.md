@@ -1,24 +1,66 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| name               | string  | null: false |
+| email              | string  | null: false |
+| encrypted_password | string  | null: false |
+| tel                | integer | null: false |
 
-* Ruby version
+## Product Information（商品） テーブル
 
-* System dependencies
+| Column                   | Type     | Options     |
+| ------------------       | ------   | ----------- |
+| Product ID               | integer  | null: false |
+| Product Name             | string   | null: false |
+| Description              | text     | null: false |
+| Price                    | integer  | null: false |
+| Stock Quantity           | integer  | null: false |
 
-* Configuration
+## Order Information（注文） テーブル
 
-* Database creation
+| Column                   | Type     | Options     |
+| ------------------       | ------   | ----------- |
+| Order ID                 | integer  | null: false |
+| User ID                  | integer  | null: false |
+| Order Date and Time      | datetime | null: false |
+| Total Amount             | integer  | null: false |
 
-* Database initialization
+## Order Details（注文詳細） テーブル
 
-* How to run the test suite
+| Column                   | Type     | Options     |
+| ------------------       | ------   | ----------- |
+| Order ID                 | integer  | null: false |
+| Product ID               | integer  | null: false |
+| Quantity                 | integer  | null: false |
 
-* Services (job queues, cache servers, search engines, etc.)
+## Shopping Cart（カート） テーブル
 
-* Deployment instructions
+| Column                   | Type     | Options     |
+| ------------------       | ------   | ----------- |
+| Cart ID                  | integer  | null: false |
+| Product ID               | integer  | null: false |
+| User ID                  | integer  | null: false |
+| Quantity                 | integer  | null: false |
 
-* ...
+
+## Transaction History（取引履歴） テーブル
+
+| Column                          | Type      | Options     |
+| ------------------              | ------    | ----------- |
+| Transaction ID                  | integer   | null: false |
+| Order ID                        | integer   | null: false |
+| User ID                         | integer   | null: false |
+| Payment Method                  | string    | null: false |
+| Shipping Method                 | string    | null: false |
+| Shipping Address                | string    | null: false |
+| Transaction Date and Time       | datetime  | null: false |
+
+## Favorite Product（お気に入り） テーブル
+
+| Column                   | Type     | Options     |
+| ------------------       | ------   | ----------- |
+| Product ID               | integer  | null: false |
+| User ID                  | integer  | null: false |
