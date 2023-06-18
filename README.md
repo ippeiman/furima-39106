@@ -8,35 +8,38 @@
 | email                     | string    | null: false, unique: true |
 | encrypted_password        | string    | null: false               |
 | first_name                | string    | null: false               |
-| familly_name              | string    | null: false               |
-| birth_date                | datetime  | null: false               |
+| last_name                 | string    | null: false               |
+| first_name_katakana       | string    | null: false               |
+| last_name_katakana        | string    | null: false               |
+| birth_date                | date      | null: false               |
 
-## Items（商品） テーブル
+## items（商品） テーブル
 
 | Column                   | Type     | Options     |
 | ------------------       | ------   | ----------- |
 | name                     | string   | null: false |
 | description              | text     | null: false |
 | price                    | integer  | null: false |
-| item_condition           | integer  | null: false |
-| brand                    | integer  |             |
+| category_id              | integer  | null: false,foreign_key: true |
+| item_id                  | integer  | null: false |
+| seller_id                | integer  | null: false |
+| shipping_area            | integer  | null: false |
+| delivary_days            | integer  | null: false |
 
 
-## Orders Information（注文） テーブル
+## orders_information（注文） テーブル
 
 | Column                   | Type        | Options     |
 | ------------------       | ------      | ----------- |
-| order_id                 | references  | null: false,foreign_key: true |
-| user_id                  | references  | null: false,foreign_key: true |
-| order_date_and_time      | datetime    | null: false |
-| total_amount             | integer     | null: false |
+| user                     | references  | null: false,foreign_key: true |
 
 ## postages（発送） テーブル
 
 | Column                   | Type     | Options     |
 | ------------------       | ------   | ----------- |
 | post_code                | string   | null: false |
-| city                     | string   | null: false |
+| prefecture_id            | integer  | null: false |
 | house_number             | string   | null: false |
-| building_name            | string   | null: false |
-| phone_number             | string   | null: false, unique: true |
+| building_name            | string   |             |
+| phone_number             | string   | null: false |
+| user_id                  | references  | null: false,foreign_key: true |
