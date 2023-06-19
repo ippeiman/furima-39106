@@ -15,6 +15,7 @@
 
 ## アソシエーション
 - has_many :items
+- has_many :order_information
 
 ## items（商品） テーブル
 
@@ -23,14 +24,15 @@
 | name                     | string   | null: false |
 | description              | text     | null: false |
 | price                    | integer  | null: false |
-| category_id              | integer  | null: false,foreign_key: true |
-| item_id                  | integer  | null: false |
-| seller_id                | integer  | null: false |
+| category_id              | integer  | null: false |
+| condition_id             | integer  | null: false |
+| shipping_cost_id         | integer  | null: false |
 | shipping_area_id         | integer  | null: false |
 | delivary_days_id         | integer  | null: false |
 
 ## アソシエーション
 - belongs_to :user
+- has_many :order_information
 
 
 ## order_informations（注文） テーブル
@@ -41,18 +43,19 @@
 | item                     | string      | null: false |
 
 ## アソシエーション
-- belongs_to :user
+- belongs_to :item
+- belongs_to :postage
 
 ## postages（発送） テーブル
 
-| Column                   | Type     | Options     |
-| ------------------       | ------   | ----------- |
-| post_code                | string   | null: false |
-| prefecture_id            | integer  | null: false |
-| house_number             | string   | null: false |
-| building_name            | string   |             |
-| phone_number             | string   | null: false |
-| order_informations       | references  | null: false,foreign_key: true |
+| Column                   | Type        | Options     |
+| ------------------       | ------      | ----------- |
+| post_code                | string      | null: false |
+| prefecture_id            | integer     | null: false |
+| house_number             | string      | null: false |
+| building_name            | string      |             |
+| phone_number             | string      | null: false |
+| order_information_id     | references  | null: false,foreign_key: true |
 
 ## アソシエーション
-- belongs_to :user
+- belongs_to :order_information
