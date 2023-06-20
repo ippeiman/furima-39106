@@ -1,24 +1,64 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                    | Type      | Options     |
+| ------------------        | ------    | ----------- |
+| nickname                  | string    | null: false |
+| email                     | string    | null: false, unique: true |
+| encrypted_password        | string    | null: false |
+| first_name                | string    | null: false |
+| last_name                 | string    | null: false |
+| first_name_katakana       | string    | null: false |
+| last_name_katakana        | string    | null: false |
+| birth_date                | date      | null: false |
 
-* Ruby version
+## アソシエーション
+- has_many :items
+- has_many :order_informations
 
-* System dependencies
+## items（商品） テーブル
 
-* Configuration
+| Column                   | Type        | Options     |
+| ------------------       | ------      | ----------- |
+| name                     | string      | null: false |
+| description              | text        | null: false |
+| price                    | integer     | null: false |
+| category_id              | integer     | null: false |
+| condition_id             | integer     | null: false |
+| shipping_cost_id         | integer     | null: false |
+| shipping_area_id         | integer     | null: false |
+| delivary_day_id         | integer     | null: false |
+| user                     | references  | null: false,foreign_key: true |
 
-* Database creation
+## アソシエーション
+- belongs_to :user
+- has_one :order_information
 
-* Database initialization
 
-* How to run the test suite
+## order_informations（注文） テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column                   | Type        | Options     |
+| ------------------       | ------      | ----------- |
+| user                     | references  | null: false,foreign_key: true |
+| item                     | references  | null: false,foreign_key: true |
+## アソシエーション
+- belongs_to :item
+- has_one :postage
+- belongs_to :user
 
-* Deployment instructions
 
-* ...
+## postages（発送） テーブル
+
+| Column                   | Type        | Options     |
+| ------------------       | ------      | ----------- |
+| post_code                | string      | null: false |
+| shipping_area_id         | integer     | null: false |
+| municipalities           | string      | null: false |
+| house_number             | string      | null: false |
+| building_name            | string      |             |
+| phone_number             | string      | null: false |
+| order_information        | references  | null: false,foreign_key: true |
+
+## アソシエーション
+- belongs_to :order_information
