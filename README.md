@@ -28,7 +28,7 @@
 | condition_id             | integer     | null: false |
 | shipping_cost_id         | integer     | null: false |
 | shipping_area_id         | integer     | null: false |
-| delivary_day_id         | integer     | null: false |
+| delivary_day_id          | integer     | null: false |
 | user                     | references  | null: false,foreign_key: true |
 
 ## アソシエーション
