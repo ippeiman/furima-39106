@@ -1,8 +1,9 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  
 
   def index
-    @items = Item.includes(:user)
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -17,13 +18,12 @@ class ItemsController < ApplicationController
       render :new
     end
   end
+  
 
-  def edit
-    # ログインしているユーザーと同一であればeditファイルが読み込まれる
-    if @item.user_id == current_user.id && @item.order.nil?
-    else
-      redirect_to root_path
-    end
+  private
+
+  def item_params
+    params.require(:item).permit(:image, :name, :description, :category_id, :condition_id, :shipping_cost_id, :shipping_area_id, :delivary_day_id, :price).merge(user_id: current_user.id)
   end
   
 end
