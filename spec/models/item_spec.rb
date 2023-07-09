@@ -64,7 +64,7 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーの情報が空欄だと出品できない' do
         @item.category_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank", 'Category is not a number')
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it '商品の状態の情報が「---」だと出品できない' do
         @item.condition_id = 0
@@ -74,7 +74,7 @@ RSpec.describe Item, type: :model do
       it '商品の状態の情報が空欄だと出品できない' do
         @item.condition_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank", 'Condition is not a number')
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担の情報が「---」だと出品できない' do
         @item.shipping_cost_id = 0
@@ -84,7 +84,7 @@ RSpec.describe Item, type: :model do
       it '配送料の負担の情報が空欄だと出品できない' do
         @item.shipping_cost_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping cost can't be blank", 'Shipping cost is not a number')
+        expect(@item.errors.full_messages).to include("Shipping cost can't be blank")
       end
       it '発送元の地域の情報が「---」だと出品できない' do
         @item.shipping_area_id = 0
@@ -94,7 +94,7 @@ RSpec.describe Item, type: :model do
       it '発送元の地域の情報が空欄だと出品できない' do
         @item.shipping_area_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping area can't be blank", 'Shipping area is not a number')
+        expect(@item.errors.full_messages).to include("Shipping area can't be blank")
       end
       it '発送までの日数の情報が「---」だと出品できない' do
         @item.delivary_day_id = 0
@@ -104,12 +104,12 @@ RSpec.describe Item, type: :model do
       it '発送までの日数の情報が空欄だと出品できない' do
         @item.delivary_day_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivary day can't be blank", 'Delivary day is not a number')
+        expect(@item.errors.full_messages).to include("Delivary day can't be blank")
       end
       it '価格が空欄だと出品できない' do
         @item.price = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price can't be blank", 'Price is not a number')
+        expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it '価格の範囲が、300円未満だと出品できない' do
         @item.price = 100
@@ -120,6 +120,11 @@ RSpec.describe Item, type: :model do
         @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+      end
+      it '価格に半角数字以外が含まれている場合は出品できない（※半角数字以外が一文字でも含まれていれば良い）' do
+        @item.price = "100a"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
     end
   end
