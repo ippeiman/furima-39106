@@ -15,7 +15,7 @@
 
 ## アソシエーション
 - has_many :items
-- has_many :order_informations
+- has_many :postages
 
 ## items（商品） テーブル
 
@@ -33,10 +33,10 @@
 
 ## アソシエーション
 - belongs_to :user
-- has_one :order_information
+- has_one :postage
 
 
-## order_informations（注文） テーブル
+## postages（発送） テーブル
 
 | Column                   | Type        | Options     |
 | ------------------       | ------      | ----------- |
@@ -44,21 +44,21 @@
 | item                     | references  | null: false,foreign_key: true |
 ## アソシエーション
 - belongs_to :item
-- has_one :postage
+- has_one :payment
 - belongs_to :user
 
 
-## postages（発送） テーブル
+## payments（発送） テーブル
 
 | Column                   | Type        | Options     |
 | ------------------       | ------      | ----------- |
 | post_code                | string      | null: false |
 | shipping_area_id         | integer     | null: false |
-| municipalities           | string      | null: false |
+| city                     | string      | null: false |
 | house_number             | string      | null: false |
 | building_name            | string      |             |
 | phone_number             | string      | null: false |
-| order_information        | references  | null: false,foreign_key: true |
+| postage                  | references  | null: false,foreign_key: true |
 
 ## アソシエーション
 - belongs_to :order_information
