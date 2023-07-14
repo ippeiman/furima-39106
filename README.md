@@ -48,7 +48,7 @@
 - belongs_to :user
 
 
-## payments（発送） テーブル
+## payments（支払い者情報） テーブル
 
 | Column                   | Type        | Options     |
 | ------------------       | ------      | ----------- |
@@ -61,4 +61,4 @@
 | postage                  | references  | null: false,foreign_key: true |
 
 ## アソシエーション
-- belongs_to :order_information
+- belongs_to :postage
