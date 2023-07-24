@@ -1,6 +1,6 @@
 class PostagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :non_purchased_item, only: [:index, :create]
+  before_action :non_purchased_item, only: [:index, :create,]
 
   def index
     @postage_form = PostageForm.new
@@ -11,7 +11,7 @@ class PostagesController < ApplicationController
     if @postage_form.valid?
       pay_item
       @postage_form.save
-      redirect_to root_path
+      return redirect_to root_path
     else
       render :index
     end
@@ -20,16 +20,15 @@ class PostagesController < ApplicationController
   private
 
   def postage_params
-    
     params.require(:postage_form).permit(:post_code, :shipping_area_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: @item.price,        
+      amount: @item.price,
       card: postage_params[:token], 
-      currency: 'jpy'             
+      currency: 'jpy'
     )
   end
 
