@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe PostageForm, type: :model do
+  describe '配送先情報の保存' do
   before do
-    @postage_form = FactoryBot.build(:postage_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @postage_form = FactoryBot.build(:postage_form, user_id: user.id, item_id: item.id)
   end
 
-  describe '配送先情報の保存' do
     context '配送先情報の保存ができるとき' do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@postage_form).to be_valid
@@ -97,6 +99,11 @@ RSpec.describe PostageForm, type: :model do
       end
       it '電話番号が12桁以上あると保存できないこと' do
         @postage_form.phone_number = 12_345_678_910_123_111
+        @postage_form.valid?
+        expect(@postage_form.errors.full_messages).to include('Phone number is invalid')
+      end
+      it '電話番号が9桁以下だと保存できないこと' do
+        @postage_form.phone_number = 12_345_678
         @postage_form.valid?
         expect(@postage_form.errors.full_messages).to include('Phone number is invalid')
       end
